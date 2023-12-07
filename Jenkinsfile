@@ -73,6 +73,14 @@ pipeline{
                }
             }
         }
+        stage('jfrog stage'){
+         when { expression {  params.action == 'create' } }
+            steps{
+              sh '''
+                curl -X PUT -u admin:Rajubhai@143 -T kubernetes-configmap-reload-0.0.1-SNAPSHOT.jar http://44.202.144.2:8082/artifactory/java-project
+                '''
+            }
+        }
         stage('Docker Image Build'){
          when { expression {  params.action == 'create' } }
             steps{
